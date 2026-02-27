@@ -23,7 +23,7 @@ Aplicación web que toma URLs largas y las transforma en enlaces cortos. Cuando 
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/TU_USUARIO/url-shortener.git
+https://github.com/VMz69/shortener
 
 # Instalar dependencias
 npm install
