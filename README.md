@@ -21,9 +21,9 @@ Aplicación web que toma URLs largas y las transforma en enlaces cortos. Cuando 
 
 ## 🛠️ Instalación
 
-
+```bash
 # Clonar repositorio
-git clone https://github.com/TU_USUARIO/shortener.git
+git clone https://github.com/TU_USUARIO/url-shortener.git
 
 # Instalar dependencias
 npm install
@@ -33,16 +33,14 @@ cp .env.example .env
 
 # Iniciar aplicación
 npm start
-
-## 📁 Estructura del Proyecto
+📁 Estructura del Proyecto
+text
 /
 ├── src/
 ├── public/
 ├── package.json
 └── README.md
+📌 Estado del Proyecto
+En desarrollo - Primeros pasos
 
-## 📌 Estado del Proyecto
-En desarrollo...
-
-Proyecto Universitario grupal Node.js
-
+Proyecto grupal Universitario. Node.Js
