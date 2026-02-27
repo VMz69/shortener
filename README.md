@@ -35,13 +35,13 @@ cp .env.example .env
 npm start
 ```
 ## 📁 Estructura del Proyecto
-text
+```
 /
 ├── src/
 ├── public/
 ├── package.json
 └── README.md
-
+```
 ## 📌 Estado del Proyecto
 En desarrollo - Primeros pasos
 
