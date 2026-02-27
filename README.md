@@ -1,4 +1,4 @@
-# URL Shortener
+# SHORTLINK | URL Shortener
 
 Un acortador de URLs desarrollado con Node.js que permite convertir enlaces largos en versiones cortas y fáciles de compartir.
 
@@ -23,7 +23,7 @@ Aplicación web que toma URLs largas y las transforma en enlaces cortos. Cuando 
 
 
 # Clonar repositorio
-git clone https://github.com/TU_USUARIO/url-shortener.git
+git clone https://github.com/TU_USUARIO/shortener.git
 
 # Instalar dependencias
 npm install
@@ -43,12 +43,5 @@ text
 📌 Estado del Proyecto
 En desarrollo - Primeros pasos
 
-Proyecto personal para practicar Node.js
+Proyecto Universitario grupal Node.js
 
-text
-
-Este README es:
-- **Simple y directo**
-- **No revela detalles específicos** de implementación
-- **Fácil de actualizar** a medida que avances
-- **Profesional pero minimalista**
