@@ -33,15 +33,16 @@ cp .env.example .env
 
 # Iniciar aplicación
 npm start
-📁 Estructura del Proyecto
-text
+
+## 📁 Estructura del Proyecto
 /
 ├── src/
 ├── public/
 ├── package.json
 └── README.md
-📌 Estado del Proyecto
-En desarrollo - Primeros pasos
+
+## 📌 Estado del Proyecto
+En desarrollo...
 
 Proyecto Universitario grupal Node.js
 
