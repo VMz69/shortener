@@ -1,62 +1,53 @@
-const { generarCodigo } = require("../services/generarIdService");
-const { agregarDireccion } = require("../models/urlModel")
-const { eliminarPorId, eliminarPorShort } = require("../models/UrlModel");
+const urlModel = require('../models/urlModel');
 
-const agregar = async(req, res) => {
+// Crear nueva URL
+const agregar = async (req, res) => {
   try {
-    const body = req.body;
-    const { nombreDeDireccion, direccionReal } = body
-    const codigo = generarCodigo()
-    await agregarDireccion(nombreDeDireccion, direccionReal, codigo)
-
-    const respuesta = {
-        estado: "ok",
-        link_real: direccionReal,
-        link_short: codigo,
-        mensaje: "URL acortada exitosamente"
-    }
-    res.status(200).json(respuesta)
-  } catch (e) {
-    res.status(500).json({
-      ok: false,
-      error: "Error interno",
-      message: e.message,
-    });
+    const { originalUrl, short } = req.body;
+    const result = await urlModel.insertUrl(originalUrl, short);
+    res.status(201).json({ message: 'URL creada', data: result.rows[0] });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al crear la URL' });
   }
+};
 
-// DELETE /url/:id
+// Eliminar por ID
 const borrarUrlPorId = async (req, res) => {
   try {
     const { id } = req.params;
-    if (!/^\d+$/.test(id)) {
-      return res.status(400).json({ error: "ID inválido" });
+    const result = await urlModel.deleteUrl(id);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'URL no encontrada' });
     }
-    const affected = await eliminarPorId(Number(id));
-    if (affected === 0) return res.status(404).json({ error: "URL no encontrada" });
-    return res.json({ ok: true, message: "URL eliminada correctamente" });
-  } catch (err) {
-    console.error("Error al eliminar por ID:", err);
-    return res.status(500).json({ error: "Error interno del servidor" });
+
+    res.status(200).json({ message: 'URL eliminada correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al eliminar la URL' });
   }
 };
 
-// DELETE /url/code/:short
+// Eliminar por short
 const borrarUrlPorShort = async (req, res) => {
   try {
     const { short } = req.params;
-    const re = /^[a-zA-Z0-9_-]{3,32}$/;
-    if (!re.test(short)) {
-      return res.status(400).json({ error: "Código corto inválido" });
+    const result = await urlModel.deleteUrlByShort(short);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'URL no encontrada' });
     }
-    const affected = await eliminarPorShort(short);
-    if (affected === 0) return res.status(404).json({ error: "URL no encontrada" });
-    return res.json({ ok: true, message: "URL eliminada correctamente" });
-  } catch (err) {
-    console.error("Error al eliminar por short:", err);
-    return res.status(500).json({ error: "Error interno del servidor" });
+
+    res.status(200).json({ message: 'URL eliminada correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al eliminar la URL' });
   }
 };
 
-module.exports = {agregar,
+module.exports = {
+  agregar,
   borrarUrlPorId,
-  borrarUrlPorShort,};
+  borrarUrlPorShort
+};

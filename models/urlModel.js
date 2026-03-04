@@ -1,33 +1,53 @@
-const pool = require("../config/pool");
+const urlModel = require('../models/urlModel');
 
-// Crear 
-const agregarDireccion = async (nombreDeDireccion, direccionReal, direccionAcortada) => {
-  await pool.execute(
-    "INSERT INTO direcciones (link_name, link_short, link_real) VALUES (?, ?, ?)",
-    [nombreDeDireccion, direccionAcortada, direccionReal]
-  );
+// Crear nueva URL
+const agregar = async (req, res) => {
+  try {
+    const { originalUrl, short } = req.body;
+    const result = await urlModel.insertUrl(originalUrl, short);
+    res.status(201).json({ message: 'URL creada', data: result.rows[0] });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al crear la URL' });
+  }
 };
 
-// Borrar por ID XD
-const eliminarPorId = async (id) => {
-  const [result] = await pool.execute(
-    "DELETE FROM direcciones WHERE id = ?",
-    [id]
-  );
-  return result.affectedRows; // 0 si no encontró, >0 si borró
+// Eliminar por ID
+const borrarUrlPorId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await urlModel.deleteUrl(id);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'URL no encontrada' });
+    }
+
+    res.status(200).json({ message: 'URL eliminada correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al eliminar la URL' });
+  }
 };
 
-// Borrar por link_short XD
-const eliminarPorShort = async (shortCode) => {
-  const [result] = await pool.execute(
-    "DELETE FROM direcciones WHERE link_short = ?",
-    [shortCode]
-  );
-  return result.affectedRows;
+// Eliminar por short
+const borrarUrlPorShort = async (req, res) => {
+  try {
+    const { short } = req.params;
+    const result = await urlModel.deleteUrlByShort(short);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'URL no encontrada' });
+    }
+
+    res.status(200).json({ message: 'URL eliminada correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al eliminar la URL' });
+  }
 };
 
 module.exports = {
-  agregarDireccion,
-  eliminarPorId,
-  eliminarPorShort,
+  agregar,
+  borrarUrlPorId,
+  borrarUrlPorShort
 };
