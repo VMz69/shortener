@@ -59,5 +59,4 @@ const borrarUrlPorShort = async (req, res) => {
 
 module.exports = {agregar,
   borrarUrlPorId,
-};
   borrarUrlPorShort,};
