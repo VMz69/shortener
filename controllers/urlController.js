@@ -1,5 +1,5 @@
 const { generarCodigo } = require("../services/generarIdService");
-const { agregarDireccion } = require("../models/urlModel")
+const { agregarDireccion, editarDireccion } = require("../models/urlModel")
 
 const agregar = async(req, res) => {
   try {
@@ -24,4 +24,18 @@ const agregar = async(req, res) => {
   }
 };
 
-module.exports = { agregar }
+const editar = async (req, res) => {
+    try {
+        const { codigo } = req.params;
+        const { nombreDeDireccion, direccionReal } = req.body;
+        await editarDireccion(codigo, nombreDeDireccion, direccionReal);
+        res.status(200).json({
+            estado: "ok",
+            mensaje: "URL actualizada exitosamente"
+        });
+    } catch (e) {
+        res.status(500).json({ ok: false, error: "Error interno", message: e.message });
+    }
+};
+
+module.exports = { agregar, editar }
