@@ -1,5 +1,5 @@
 const { generarCodigo } = require("../services/generarIdService");
-const { agregarDireccion, editarDireccion } = require("../models/urlModel")
+const { agregarDireccion, editarDireccion, borrarPorId, borrarPorShort } = require("../models/urlModel")
 
 const agregar = async(req, res) => {
   try {
