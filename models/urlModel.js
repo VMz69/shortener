@@ -10,4 +10,16 @@ const editarDireccion = async (codigo, nombreDeDireccion, direccionReal) => {
     );
 };
 
-module.exports = { agregarDireccion, editarDireccion }
+// Borrar por ID
+const borrarPorId = async (id) => {
+    const [result] = await pool.execute("DELETE FROM direcciones WHERE id = ?", [id]);
+    return result;
+  };
+  
+  // Borrar por short code
+  const borrarPorShort = async (short) => {
+    const [result] = await pool.execute("DELETE FROM direcciones WHERE link_short = ?", [short]);
+    return result;
+  };
+
+module.exports = { agregarDireccion, editarDireccion, borrarPorId, borrarPorShort }
