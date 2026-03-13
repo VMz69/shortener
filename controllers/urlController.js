@@ -38,4 +38,34 @@ const editar = async (req, res) => {
     }
 };
 
-module.exports = { agregar, editar }
+const borrarUrlPorId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await borrarPorId(id);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ mensaje: "URL no encontrada" });
+    }
+
+    res.json({ mensaje: "URL eliminada correctamente" });
+  } catch (e) {
+    res.status(500).json({ error: "Error interno", message: e.message });
+  }
+};
+
+const borrarUrlPorShort = async (req, res) => {
+  try {
+    const { short } = req.params;
+    const result = await borrarPorShort(short);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ mensaje: "URL no encontrada" });
+    }
+
+    res.json({ mensaje: "URL eliminada correctamente" });
+  } catch (e) {
+    res.status(500).json({ error: "Error interno", message: e.message });
+  }
+};
+
+module.exports = { agregar, editar, borrarUrlPorId, borrarUrlPorShort }
