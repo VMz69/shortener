@@ -68,4 +68,28 @@ const borrarUrlPorShort = async (req, res) => {
   }
 };
 
-module.exports = { agregar, editar, borrarUrlPorId, borrarUrlPorShort }
+
+const { buscarPorCodigo } = require("../models/urlModel");
+
+const redireccionar = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const resultado = await buscarPorCodigo(id);
+
+    if (!resultado) {
+      return res.status(404).json({
+        error: "URL no encontrada"
+      });
+    }
+
+    res.redirect(resultado.link_real);
+
+  } catch (e) {
+    res.status(500).json({
+      error: "Error interno"
+    });
+  }
+};
+
+module.exports = { agregar, redireccionar, editar, borrarUrlPorId, borrarUrlPorShort };

@@ -22,4 +22,15 @@ const borrarPorId = async (id) => {
     return result;
   };
 
-module.exports = { agregarDireccion, editarDireccion, borrarPorId, borrarPorShort }
+
+
+const buscarPorCodigo = async (codigo) => {
+  const [rows] = await pool.execute(
+    "SELECT link_real FROM direcciones WHERE link_short = ?",
+    [codigo]
+  );
+
+  return rows[0];
+};
+
+module.exports = { agregarDireccion, editarDireccion, borrarPorId, borrarPorShort, buscarPorCodigo }
