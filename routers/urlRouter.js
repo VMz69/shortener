@@ -4,7 +4,8 @@ const {
   agregar,
   editar,
   borrarUrlPorId,
-  borrarUrlPorShort
+  borrarUrlPorShort,
+  listar
 } = require("../controllers/urlController");
 
 /**
@@ -79,6 +80,22 @@ router.post("/crear", agregar);
  */
 router.put("/editar/:codigo", editar);
 
+
+/**
+ * @openapi
+ * /url/listar:
+ *   get:
+ *     summary: Listar todas las URLs creadas
+ *     tags:
+ *       - URL
+ *     responses:
+ *       200:
+ *         description: Lista de URLs
+ *       500:
+ *         description: Error interno
+ */
+router.get("/listar", listar);
+
 /**
  * @openapi
  * /url/{id}:
@@ -126,5 +143,7 @@ router.delete("/:id", borrarUrlPorId);
  *         description: Error interno
  */
 router.delete("/code/:short", borrarUrlPorShort);
+
+
 
 module.exports = router;

@@ -58,6 +58,8 @@ app.get("/", (req, res) => {
 app.get("/:id", redireccionar);
 app.use("/url", urlRouter);
 
+//Mensaje que muestra que el servidor está corriendo y dónde encontrar la documentación de Swagger
 app.listen(3000, () => {
-  console.log("Servidor corriendo");
+  console.log("🚀 Servidor corriendo en http://localhost:3000");
+  console.log("📚 Swagger disponible en http://localhost:3000/docs");
 });
