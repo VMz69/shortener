@@ -1,5 +1,5 @@
 const { generarCodigo } = require("../services/generarIdService");
-const { agregarDireccion, editarDireccion, borrarPorId, borrarPorShort } = require("../models/urlModel")
+const { agregarDireccion, editarDireccion, borrarPorId, borrarPorShort, buscarPorCodigo, listarDirecciones } = require("../models/urlModel")
 
 const agregar = async(req, res) => {
   try {
@@ -68,9 +68,6 @@ const borrarUrlPorShort = async (req, res) => {
   }
 };
 
-
-const { buscarPorCodigo } = require("../models/urlModel");
-
 const redireccionar = async (req, res) => {
   try {
     const { id } = req.params;
@@ -92,4 +89,23 @@ const redireccionar = async (req, res) => {
   }
 };
 
-module.exports = { agregar, redireccionar, editar, borrarUrlPorId, borrarUrlPorShort };
+const listar = async (req, res) => {
+  try {
+    const urls = await listarDirecciones();
+
+    res.status(200).json({
+      estado: "ok",
+      total: urls.length,
+      data: urls
+    });
+
+  } catch (e) {
+    res.status(500).json({
+      ok: false,
+      error: "Error interno",
+      message: e.message
+    });
+  }
+};
+
+module.exports = { agregar, redireccionar, editar, borrarUrlPorId, borrarUrlPorShort, listar };

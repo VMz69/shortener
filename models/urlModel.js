@@ -22,7 +22,12 @@ const borrarPorId = async (id) => {
     return result;
   };
 
+  //Listar todas las direcciones
 
+  const listarDirecciones = async () => {
+  const [result] = await pool.query("SELECT * FROM direcciones");
+  return result;
+};
 
 const buscarPorCodigo = async (codigo) => {
   const [rows] = await pool.execute(
@@ -33,4 +38,4 @@ const buscarPorCodigo = async (codigo) => {
   return rows[0];
 };
 
-module.exports = { agregarDireccion, editarDireccion, borrarPorId, borrarPorShort, buscarPorCodigo }
+module.exports = { agregarDireccion, editarDireccion, borrarPorId, borrarPorShort, buscarPorCodigo, listarDirecciones }
